@@ -15,6 +15,7 @@
 ## 원자재 
 
 
+
 def crawl_gold_index(index_cd, end_page):
     date_list = []
     price_list = []
