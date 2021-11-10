@@ -14,7 +14,7 @@
 
 ## 원자재 
 
-```{.python}
+```python
 def crawl_gold_index(index_cd, end_page):
     date_list = []
     price_list = []
@@ -47,7 +47,7 @@ crawl_gold_index("CMDT_GC", 20)
  
  ## 환율
 
-```{.python}
+```python
 def crawl_dollar_index(index_cd, end_page):
     date_list = []
     price_list = []
