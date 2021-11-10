@@ -11,7 +11,8 @@
      4. 원하는 종목의 뉴스별 최다 사용 단어 5개를 불러오는 알고리즘 생성
 
 # 코드
-'''
+
+
           def crawl_gold_index(index_cd, end_page):
               date_list = []
               price_list = []
@@ -36,4 +37,3 @@
 
               df = pd.DataFrame({'날짜' : date_list, "체결가" : price_list, "등락률" : ratio_list})
               return df
-'''
