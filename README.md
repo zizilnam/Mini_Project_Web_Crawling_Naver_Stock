@@ -14,33 +14,64 @@
 
 ## 원자재 
 
-
-
-          def crawl_gold_index(index_cd, end_page):
-              date_list = []
-              price_list = []
-              ratio_list = []
-              for page_n in range(1, end_page+1):
-                  naver_index = f"https://finance.naver.com/marketindex/worldDailyQuote.nhn?marketindexCd={index_cd}&fdtc=2&page={page_n}"
-                  src = urlopen(naver_index).read()
-                  source = bs4.BeautifulSoup(src, 'lxml')
-                  td = source.find_all('td')
-                  dates = source.find_all('td', class_='date')
-                  prices = source.find_all('td', class_='num')
-                  for i in range(len(dates)):
-                      this_date = dates[i].text.replace('\m', '').replace('\t', '').strip()
-                      this_date =date_format(this_date)
-                      this_close = prices[i*3].text.replace('\n','').replace('\t','').replace(',','')
-                      this_close = float(this_close)
-                      this_ratio = prices[i*3+2].text.replace('\n','').replace('\t','').replace('%','')
-                      this_ratio = float(this_ratio)
-                      date_list.append(this_date)
-                      price_list.append(this_close)
-                      ratio_list.append(this_ratio)
-
-              df = pd.DataFrame({'날짜' : date_list, "체결가" : price_list, "등락률" : ratio_list})
-              return df
-          
-          crawl_gold_index("CMDT_GC", 20)
-          
+'''{.python}
+def crawl_gold_index(index_cd, end_page):
+    date_list = []
+    price_list = []
+    ratio_list = []
+    for page_n in range(1, end_page+1):
+        naver_index = f"https://finance.naver.com/marketindex/worldDailyQuote.nhn?marketindexCd={index_cd}&fdtc=2&page={page_n}"
+        src = urlopen(naver_index).read()
+        source = bs4.BeautifulSoup(src, 'lxml')
+        td = source.find_all('td')
+        dates = source.find_all('td', class_='date')
+        prices = source.find_all('td', class_='num')
+        for i in range(len(dates)):
+            this_date = dates[i].text.replace('\m', '').replace('\t', '').strip()
+            this_date =date_format(this_date)
+            this_close = prices[i*3].text.replace('\n','').replace('\t','').replace(',','')
+            this_close = float(this_close)
+            this_ratio = prices[i*3+2].text.replace('\n','').replace('\t','').replace('%','')
+            this_ratio = float(this_ratio)
+            date_list.append(this_date)
+            price_list.append(this_close)
+            ratio_list.append(this_ratio)
+        
+    df = pd.DataFrame({'날짜' : date_list, "체결가" : price_list, "등락률" : ratio_list})
+    return df
+    
+crawl_gold_index("CMDT_GC", 20)
+'''       
  ![image](https://user-images.githubusercontent.com/69458840/141086847-1e1a8423-5b1e-4fb2-a547-9e32f3bf5a3a.png)
+ 
+ 
+ ## 환율
+ 
+      def crawl_dollar_index(index_cd, end_page):
+         date_list = []
+         price_list = []
+         ratio_list = []
+         for page_n in range(1, end_page+1):
+             naver_index = f"https://finance.naver.com/marketindex/worldDailyQuote.nhn?fdtc=4&marketindexCd={index_cd}&page={page_n}"
+             src = urlopen(naver_index).read()
+             source = bs4.BeautifulSoup(src, 'lxml')
+             td = source.find_all('td')
+             dates = source.find_all('td', class_='date')
+             prices = source.find_all('td', class_='num')
+             for i in range(len(dates)):
+                 this_date = dates[i].text.replace('\n', '').replace('\t', '').strip()
+                 this_date =date_format(this_date)
+                 this_close = prices[i*3].text.replace('\n','').replace('\t','').replace(',','')
+                 this_close = float(this_close)
+                 this_ratio = prices[i*3+2].text.replace('\n','').replace('\t','').replace('%','')
+                 this_ratio = float(this_ratio)
+                 date_list.append(this_date)
+                 price_list.append(this_close)
+                 ratio_list.append(this_ratio)
+         df = pd.DataFrame({'날짜' : date_list, "체결가" : price_list, "등락률" : ratio_list})
+         return df
+     
+     crawl_dollar_index('FX_EURUSD', 100)
+     
+     ![image](https://user-images.githubusercontent.com/69458840/141087470-abb98c47-de66-42cf-91c8-d4ed0ef772ff.png)
+
