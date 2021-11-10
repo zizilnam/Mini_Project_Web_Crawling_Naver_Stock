@@ -14,7 +14,7 @@
 
 ## 원자재 
 
-'''{.python}
+```{.python}
 def crawl_gold_index(index_cd, end_page):
     date_list = []
     price_list = []
@@ -41,7 +41,7 @@ def crawl_gold_index(index_cd, end_page):
     return df
     
 crawl_gold_index("CMDT_GC", 20)
-'''       
+```       
  ![image](https://user-images.githubusercontent.com/69458840/141086847-1e1a8423-5b1e-4fb2-a547-9e32f3bf5a3a.png)
  
  
