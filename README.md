@@ -40,3 +40,7 @@
 
               df = pd.DataFrame({'날짜' : date_list, "체결가" : price_list, "등락률" : ratio_list})
               return df
+          
+          crawl_gold_index("CMDT_GC", 20)
+          
+ ![image](https://user-images.githubusercontent.com/69458840/141086847-1e1a8423-5b1e-4fb2-a547-9e32f3bf5a3a.png)
